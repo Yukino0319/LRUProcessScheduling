@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #define PROCESS_SHCEDULING_MAX 12
-#define PAGE_TABLE_MAX 3
+#define PAGE_TABLE_MAX 5
 
 int PageTableIsNULL(int aPage_Table[][PROCESS_SHCEDULING_MAX], int anI);    //页表是否有空闲页
 int PageTableIsHit(int aPage_Table[][PROCESS_SHCEDULING_MAX], int anI, int aProcessNum);    //页表是否命中
@@ -14,9 +14,8 @@ int main(){
     //页表
     int page_table[PAGE_TABLE_MAX][PROCESS_SHCEDULING_MAX];
     //页表初始为空
-    page_table[0][0] = 0;
-    page_table[1][0] = 0;
-    page_table[2][0] = 0;
+    for(int i = 0; i < PAGE_TABLE_MAX; ++i)
+        page_table[i][0] = 0;
     //淘汰顺序
     int off_order[PROCESS_SHCEDULING_MAX];
     int buf_offorder = 0;
@@ -60,9 +59,8 @@ int main(){
             page_table_flag[i] = 'Y';
         }
         if(i < PROCESS_SHCEDULING_MAX - 1){
-            page_table[0][i+1] = page_table[0][i];
-            page_table[1][i+1] = page_table[1][i];
-            page_table[2][i+1] = page_table[2][i];
+            for (int j = 0; j < PAGE_TABLE_MAX; ++j)
+                page_table[j][i+1] = page_table[j][i];
         }
     }
 
